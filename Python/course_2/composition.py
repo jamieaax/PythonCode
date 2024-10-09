@@ -1,0 +1,50 @@
+#Using composition to create complex objects
+
+class Book:
+    def __init__(self, title, price, author=None):
+        self.title = title
+        self.price = price
+
+        self.author = author
+
+        self.chapters = []
+
+    def addchapter(self, chapter):
+        #adds chapters to a book, they add to an array in the Book class called self.chapters = []
+        self.chapters.append(chapter)
+
+    def getbookpagecount(self):
+        #can tell us how many pages there are in a book
+        result = 0
+        for ch in self.chapters: 
+            #searches through chapters array
+            result += ch.pagecount
+        return result
+
+    
+class Author:
+    def __init__(self, fname, lname):
+        self.fname = fname
+        self.lname = lname
+
+    #overwritten __str__ function
+    def __str__(self):
+        return f"{self.fname} {self.lname}"
+    #this overwritten function allows us to define an author
+    #using their first and last name
+    
+class Chapter:
+    def __init__(self, name, pagecount):
+        self.name = name
+        self.pagecount = pagecount
+
+auth = Author("Leo", "Tolstoy")
+b1 = Book("War and Peace", 39.0, auth)
+
+b1.addchapter(Chapter("Chapter 1", 125))
+b1.addchapter(Chapter("Chapter 2", 95))
+b1.addchapter(Chapter("Chapter 3", 143))
+
+print(b1.title)
+print(b1.author)
+print(b1.getbookpagecount())
